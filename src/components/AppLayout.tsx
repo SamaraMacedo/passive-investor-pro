@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import { useTheme } from "@/hooks/use-theme";
 import { useSettings } from "@/hooks/use-app-data";
+import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
 
 const NAV = [
@@ -176,6 +177,7 @@ export function AppLayout({ children }: { children: ReactNode }) {
           </motion.div>
         </main>
       </div>
+      <Toaster richColors position="top-right" />
     </div>
   );
 }
