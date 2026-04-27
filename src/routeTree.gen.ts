@@ -9,8 +9,56 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as RelatorioMensalRouteImport } from './routes/relatorio-mensal'
+import { Route as RelatorioAnualRouteImport } from './routes/relatorio-anual'
+import { Route as ProjecoesRouteImport } from './routes/projecoes'
+import { Route as MetasRouteImport } from './routes/metas'
+import { Route as FontesRouteImport } from './routes/fontes'
+import { Route as ExportacoesRouteImport } from './routes/exportacoes'
+import { Route as ConfiguracoesRouteImport } from './routes/configuracoes'
+import { Route as AdicionarRouteImport } from './routes/adicionar'
 import { Route as IndexRouteImport } from './routes/index'
 
+const RelatorioMensalRoute = RelatorioMensalRouteImport.update({
+  id: '/relatorio-mensal',
+  path: '/relatorio-mensal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RelatorioAnualRoute = RelatorioAnualRouteImport.update({
+  id: '/relatorio-anual',
+  path: '/relatorio-anual',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProjecoesRoute = ProjecoesRouteImport.update({
+  id: '/projecoes',
+  path: '/projecoes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MetasRoute = MetasRouteImport.update({
+  id: '/metas',
+  path: '/metas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FontesRoute = FontesRouteImport.update({
+  id: '/fontes',
+  path: '/fontes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExportacoesRoute = ExportacoesRouteImport.update({
+  id: '/exportacoes',
+  path: '/exportacoes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConfiguracoesRoute = ConfiguracoesRouteImport.update({
+  id: '/configuracoes',
+  path: '/configuracoes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdicionarRoute = AdicionarRouteImport.update({
+  id: '/adicionar',
+  path: '/adicionar',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +67,144 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/adicionar': typeof AdicionarRoute
+  '/configuracoes': typeof ConfiguracoesRoute
+  '/exportacoes': typeof ExportacoesRoute
+  '/fontes': typeof FontesRoute
+  '/metas': typeof MetasRoute
+  '/projecoes': typeof ProjecoesRoute
+  '/relatorio-anual': typeof RelatorioAnualRoute
+  '/relatorio-mensal': typeof RelatorioMensalRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/adicionar': typeof AdicionarRoute
+  '/configuracoes': typeof ConfiguracoesRoute
+  '/exportacoes': typeof ExportacoesRoute
+  '/fontes': typeof FontesRoute
+  '/metas': typeof MetasRoute
+  '/projecoes': typeof ProjecoesRoute
+  '/relatorio-anual': typeof RelatorioAnualRoute
+  '/relatorio-mensal': typeof RelatorioMensalRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/adicionar': typeof AdicionarRoute
+  '/configuracoes': typeof ConfiguracoesRoute
+  '/exportacoes': typeof ExportacoesRoute
+  '/fontes': typeof FontesRoute
+  '/metas': typeof MetasRoute
+  '/projecoes': typeof ProjecoesRoute
+  '/relatorio-anual': typeof RelatorioAnualRoute
+  '/relatorio-mensal': typeof RelatorioMensalRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/adicionar'
+    | '/configuracoes'
+    | '/exportacoes'
+    | '/fontes'
+    | '/metas'
+    | '/projecoes'
+    | '/relatorio-anual'
+    | '/relatorio-mensal'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/adicionar'
+    | '/configuracoes'
+    | '/exportacoes'
+    | '/fontes'
+    | '/metas'
+    | '/projecoes'
+    | '/relatorio-anual'
+    | '/relatorio-mensal'
+  id:
+    | '__root__'
+    | '/'
+    | '/adicionar'
+    | '/configuracoes'
+    | '/exportacoes'
+    | '/fontes'
+    | '/metas'
+    | '/projecoes'
+    | '/relatorio-anual'
+    | '/relatorio-mensal'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdicionarRoute: typeof AdicionarRoute
+  ConfiguracoesRoute: typeof ConfiguracoesRoute
+  ExportacoesRoute: typeof ExportacoesRoute
+  FontesRoute: typeof FontesRoute
+  MetasRoute: typeof MetasRoute
+  ProjecoesRoute: typeof ProjecoesRoute
+  RelatorioAnualRoute: typeof RelatorioAnualRoute
+  RelatorioMensalRoute: typeof RelatorioMensalRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/relatorio-mensal': {
+      id: '/relatorio-mensal'
+      path: '/relatorio-mensal'
+      fullPath: '/relatorio-mensal'
+      preLoaderRoute: typeof RelatorioMensalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/relatorio-anual': {
+      id: '/relatorio-anual'
+      path: '/relatorio-anual'
+      fullPath: '/relatorio-anual'
+      preLoaderRoute: typeof RelatorioAnualRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/projecoes': {
+      id: '/projecoes'
+      path: '/projecoes'
+      fullPath: '/projecoes'
+      preLoaderRoute: typeof ProjecoesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/metas': {
+      id: '/metas'
+      path: '/metas'
+      fullPath: '/metas'
+      preLoaderRoute: typeof MetasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fontes': {
+      id: '/fontes'
+      path: '/fontes'
+      fullPath: '/fontes'
+      preLoaderRoute: typeof FontesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/exportacoes': {
+      id: '/exportacoes'
+      path: '/exportacoes'
+      fullPath: '/exportacoes'
+      preLoaderRoute: typeof ExportacoesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/configuracoes': {
+      id: '/configuracoes'
+      path: '/configuracoes'
+      fullPath: '/configuracoes'
+      preLoaderRoute: typeof ConfiguracoesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/adicionar': {
+      id: '/adicionar'
+      path: '/adicionar'
+      fullPath: '/adicionar'
+      preLoaderRoute: typeof AdicionarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,6 +217,14 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdicionarRoute: AdicionarRoute,
+  ConfiguracoesRoute: ConfiguracoesRoute,
+  ExportacoesRoute: ExportacoesRoute,
+  FontesRoute: FontesRoute,
+  MetasRoute: MetasRoute,
+  ProjecoesRoute: ProjecoesRoute,
+  RelatorioAnualRoute: RelatorioAnualRoute,
+  RelatorioMensalRoute: RelatorioMensalRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

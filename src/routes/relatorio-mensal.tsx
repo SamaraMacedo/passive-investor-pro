@@ -5,7 +5,8 @@ import { TrendingUp, TrendingDown, Trophy, AlertTriangle } from "lucide-react";
 import { StatCard, PanelCard } from "@/components/StatCard";
 import { useIncomes } from "@/hooks/use-app-data";
 import { formatBRL, formatPct, monthKey, monthLabel, formatDate } from "@/lib/format";
-import { bySource, categoryColor, categoryLabel } from "@/lib/storage";
+import { categoryColor, categoryLabel } from "@/lib/storage";
+import { bySource } from "@/lib/analytics";
 
 export const Route = createFileRoute("/relatorio-mensal")({
   head: () => ({ meta: [{ title: "Relatório Mensal — Investidor Passivo" }] }),
