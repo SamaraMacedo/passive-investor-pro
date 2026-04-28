@@ -7,34 +7,51 @@ interface StatCardProps {
   value: ReactNode;
   hint?: ReactNode;
   icon?: ReactNode;
-  accent?: "primary" | "info" | "warning" | "success";
+  accent?: "primary" | "info" | "warning" | "success" | "gold";
   delay?: number;
+  size?: "default" | "lg";
 }
 
 const ACCENTS = {
-  primary: "from-primary/15 to-primary/0 text-primary",
-  info: "from-info/15 to-info/0 text-info",
-  warning: "from-warning/15 to-warning/0 text-warning",
-  success: "from-success/15 to-success/0 text-success",
+  primary: { glow: "from-primary/20 via-primary/5", text: "text-primary", ring: "ring-primary/20" },
+  info: { glow: "from-info/20 via-info/5", text: "text-info", ring: "ring-info/20" },
+  warning: { glow: "from-warning/20 via-warning/5", text: "text-warning", ring: "ring-warning/20" },
+  success: { glow: "from-success/20 via-success/5", text: "text-success", ring: "ring-success/20" },
+  gold: { glow: "from-gold/25 via-gold/5", text: "text-gold", ring: "ring-gold/20" },
 };
 
-export function StatCard({ label, value, hint, icon, accent = "primary", delay = 0 }: StatCardProps) {
+export function StatCard({ label, value, hint, icon, accent = "primary", delay = 0, size = "default" }: StatCardProps) {
+  const a = ACCENTS[accent];
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
+      initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay, duration: 0.4 }}
-      className="relative overflow-hidden rounded-2xl border border-border bg-gradient-card shadow-soft hover:shadow-elegant transition-shadow p-5"
+      transition={{ delay, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ y: -3, transition: { duration: 0.2 } }}
+      className={cn(
+        "group relative overflow-hidden rounded-2xl border border-border/60 bg-gradient-card shadow-soft hover:shadow-xl-soft transition-all duration-300",
+        size === "lg" ? "p-7" : "p-6"
+      )}
     >
-      <div className={cn("absolute inset-0 bg-gradient-to-br opacity-60 pointer-events-none", ACCENTS[accent])} />
-      <div className="relative flex items-start justify-between">
-        <div>
-          <div className="text-xs uppercase tracking-wider text-muted-foreground font-medium">{label}</div>
-          <div className="mt-2 text-2xl md:text-3xl font-display font-bold tracking-tight text-foreground">{value}</div>
-          {hint && <div className="mt-1 text-xs text-muted-foreground">{hint}</div>}
+      <div className={cn("absolute -top-20 -right-20 size-48 rounded-full bg-gradient-to-br to-transparent blur-2xl opacity-70 group-hover:opacity-100 transition-opacity", a.glow)} />
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+      <div className="relative flex items-start justify-between gap-4">
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center gap-2">
+            <span className={cn("size-1.5 rounded-full", a.text.replace("text-", "bg-"))} />
+            <div className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground font-semibold">{label}</div>
+          </div>
+          <div className={cn(
+            "mt-3 font-display font-bold tracking-tight text-foreground tabular",
+            size === "lg" ? "text-4xl md:text-5xl" : "text-2xl md:text-3xl"
+          )}>{value}</div>
+          {hint && <div className="mt-2 text-xs text-muted-foreground font-medium">{hint}</div>}
         </div>
         {icon && (
-          <div className={cn("size-10 rounded-xl grid place-items-center bg-background/60 border border-border", ACCENTS[accent])}>
+          <div className={cn(
+            "size-11 rounded-xl grid place-items-center bg-background/80 border border-border ring-1 shadow-sm shrink-0 transition-transform group-hover:scale-110 group-hover:rotate-3",
+            a.text, a.ring
+          )}>
             {icon}
           </div>
         )}
@@ -44,20 +61,30 @@ export function StatCard({ label, value, hint, icon, accent = "primary", delay =
 }
 
 export function PanelCard({
-  title, subtitle, children, action, className,
-}: { title?: string; subtitle?: string; children: ReactNode; action?: ReactNode; className?: string }) {
+  title, subtitle, children, action, className, padded = true,
+}: { title?: string; subtitle?: string; children: ReactNode; action?: ReactNode; className?: string; padded?: boolean }) {
   return (
-    <div className={cn("rounded-2xl border border-border bg-card shadow-soft p-5 md:p-6", className)}>
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+      className={cn(
+        "relative rounded-2xl border border-border/60 bg-card shadow-soft overflow-hidden",
+        padded && "p-6 md:p-7",
+        className
+      )}
+    >
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
       {(title || action) && (
-        <div className="flex items-start justify-between mb-4 gap-4">
+        <div className="flex items-start justify-between mb-5 gap-4">
           <div>
-            {title && <h3 className="font-display font-semibold text-base md:text-lg">{title}</h3>}
-            {subtitle && <p className="text-xs text-muted-foreground mt-0.5">{subtitle}</p>}
+            {title && <h3 className="font-display font-semibold text-base md:text-lg tracking-tight">{title}</h3>}
+            {subtitle && <p className="text-xs text-muted-foreground mt-1">{subtitle}</p>}
           </div>
           {action}
         </div>
       )}
       {children}
-    </div>
+    </motion.div>
   );
 }
