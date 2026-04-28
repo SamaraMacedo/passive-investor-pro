@@ -28,6 +28,7 @@ export const Route = createFileRoute("/")({
 
 function Dashboard() {
   const { incomes } = useIncomes();
+  const { goals } = useGoals();
 
   const stats = useMemo(() => ({
     invested: totalInvested(incomes),
