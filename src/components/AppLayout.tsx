@@ -10,7 +10,14 @@ import { useSettings } from "@/hooks/use-app-data";
 import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
 
-const NAV_GROUPS = [
+type NavItem = {
+  to: "/" | "/adicionar" | "/fontes" | "/relatorio-mensal" | "/relatorio-anual" | "/projecoes" | "/metas" | "/exportacoes" | "/configuracoes";
+  label: string;
+  icon: typeof LayoutDashboard;
+};
+type NavGroup = { label: string; items: NavItem[] };
+
+const NAV_GROUPS: NavGroup[] = [
   {
     label: "Visão",
     items: [
@@ -35,9 +42,9 @@ const NAV_GROUPS = [
       { to: "/configuracoes", label: "Configurações", icon: SettingsIcon },
     ],
   },
-] as const;
+];
 
-const ALL_NAV = NAV_GROUPS.flatMap((g) => g.items);
+const ALL_NAV: NavItem[] = NAV_GROUPS.flatMap((g) => g.items);
 
 export function AppLayout({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(true);
