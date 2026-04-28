@@ -7,7 +7,8 @@ import {
 } from "recharts";
 import { Wallet, TrendingUp, Coins, Layers, ArrowUpRight, ArrowDownRight, Plus, Eye, Sparkles } from "lucide-react";
 import { StatCard, PanelCard } from "@/components/StatCard";
-import { useIncomes } from "@/hooks/use-app-data";
+import { PatrimonyProgressBar, MonthComparison, AchievementBadges, MotivationalInsights } from "@/components/ProgressSection";
+import { useIncomes, useGoals } from "@/hooks/use-app-data";
 import { CATEGORIES, categoryColor, categoryLabel } from "@/lib/storage";
 import { formatBRL, formatPct, monthLabel, formatDate } from "@/lib/format";
 import {
@@ -27,6 +28,7 @@ export const Route = createFileRoute("/")({
 
 function Dashboard() {
   const { incomes } = useIncomes();
+  const { goals } = useGoals();
 
   const stats = useMemo(() => ({
     invested: totalInvested(incomes),
@@ -124,12 +126,25 @@ function Dashboard() {
         </div>
       </motion.section>
 
+
+      {/* PROGRESSO PATRIMONIAL */}
+      <PatrimonyProgressBar current={patrimonio} goal={goals.patrimony} />
+
+      {/* CONQUISTAS */}
+      <AchievementBadges incomes={incomes} goals={goals} />
+
       {/* KPIs secundários */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard label="Investido" value={formatBRL(stats.invested)} icon={<Wallet className="size-5" />} accent="info" delay={0.05} />
         <StatCard label="Renda do Mês" value={formatBRL(stats.month)} hint="Atualizado agora" icon={<Coins className="size-5" />} accent="success" delay={0.1} />
         <StatCard label="Renda do Ano" value={formatBRL(stats.year)} hint={`${stats.count} lançamentos`} icon={<TrendingUp className="size-5" />} accent="primary" delay={0.15} />
         <StatCard label="Média Mensal" value={formatBRL(stats.avg)} hint={`Crescimento ${formatPct(stats.growth)}`} icon={<Layers className="size-5" />} accent="gold" delay={0.2} />
+      </div>
+
+      {/* COMPARATIVO + INSIGHTS */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        <MonthComparison incomes={incomes} />
+        <MotivationalInsights incomes={incomes} goals={goals} />
       </div>
 
       {/* Charts */}
