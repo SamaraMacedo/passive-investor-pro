@@ -7,7 +7,8 @@ import {
 } from "recharts";
 import { Wallet, TrendingUp, Coins, Layers, ArrowUpRight, ArrowDownRight, Plus, Eye, Sparkles } from "lucide-react";
 import { StatCard, PanelCard } from "@/components/StatCard";
-import { useIncomes } from "@/hooks/use-app-data";
+import { PatrimonyProgressBar, MonthComparison, AchievementBadges, MotivationalInsights } from "@/components/ProgressSection";
+import { useIncomes, useGoals } from "@/hooks/use-app-data";
 import { CATEGORIES, categoryColor, categoryLabel } from "@/lib/storage";
 import { formatBRL, formatPct, monthLabel, formatDate } from "@/lib/format";
 import {
