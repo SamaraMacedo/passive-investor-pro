@@ -163,7 +163,7 @@ function Dashboard() {
 
       {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-        <PanelCard title="Composição da Carteira" subtitle="Distribuição por classe de ativo" className="lg:col-span-1">
+        <PanelCard title="Composição da Carteira" subtitle="Distribuição por classe de ativo" className="lg:col-span-1" variant="glass">
           <div className="relative h-[260px]">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
