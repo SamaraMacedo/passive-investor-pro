@@ -8,6 +8,8 @@ import {
 import { Wallet, TrendingUp, Coins, Layers, ArrowUpRight, ArrowDownRight, Plus, Eye, Sparkles } from "lucide-react";
 import { StatCard, PanelCard } from "@/components/StatCard";
 import { PatrimonyProgressBar, MonthComparison, AchievementBadges, MotivationalInsights } from "@/components/ProgressSection";
+import { HeroMetricsRow, computeHeroMetrics } from "@/components/HeroMetrics";
+import { SmartInsightsPanel } from "@/components/SmartInsights";
 import { useIncomes, useGoals } from "@/hooks/use-app-data";
 import { CATEGORIES, categoryColor, categoryLabel } from "@/lib/storage";
 import { formatBRL, formatPct, monthLabel, formatDate } from "@/lib/format";
@@ -123,6 +125,11 @@ function Dashboard() {
               </div>
             </div>
           </motion.div>
+        </div>
+
+        {/* Métricas inteligentes do hero */}
+        <div className="relative px-8 md:px-12 pb-8 md:pb-10 -mt-2">
+          <HeroMetricsRow {...heroMetrics} />
         </div>
       </motion.section>
 
