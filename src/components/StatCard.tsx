@@ -61,22 +61,31 @@ export function StatCard({ label, value, hint, icon, accent = "primary", delay =
 }
 
 export function PanelCard({
-  title, subtitle, children, action, className, padded = true,
-}: { title?: string; subtitle?: string; children: ReactNode; action?: ReactNode; className?: string; padded?: boolean }) {
+  title, subtitle, children, action, className, padded = true, variant = "default",
+}: { title?: string; subtitle?: string; children: ReactNode; action?: ReactNode; className?: string; padded?: boolean; variant?: "default" | "glass" | "spotlight" }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
       className={cn(
-        "relative rounded-2xl border border-border/60 bg-card shadow-soft overflow-hidden",
+        "relative rounded-2xl border overflow-hidden",
+        variant === "glass" && "glass border-white/15 dark:border-white/10 shadow-elegant backdrop-blur-2xl",
+        variant === "spotlight" && "border-border/60 bg-gradient-card shadow-elegant",
+        variant === "default" && "border-border/60 bg-card shadow-soft",
         padded && "p-6 md:p-7",
         className
       )}
     >
+      {variant === "spotlight" && (
+        <>
+          <div className="absolute -top-32 -right-24 size-72 rounded-full bg-primary/10 blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-32 -left-24 size-72 rounded-full bg-info/10 blur-3xl pointer-events-none" />
+        </>
+      )}
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
       {(title || action) && (
-        <div className="flex items-start justify-between mb-5 gap-4">
+        <div className="relative flex items-start justify-between mb-5 gap-4">
           <div>
             {title && <h3 className="font-display font-semibold text-base md:text-lg tracking-tight">{title}</h3>}
             {subtitle && <p className="text-xs text-muted-foreground mt-1">{subtitle}</p>}
@@ -84,7 +93,7 @@ export function PanelCard({
           {action}
         </div>
       )}
-      {children}
+      <div className="relative">{children}</div>
     </motion.div>
   );
 }

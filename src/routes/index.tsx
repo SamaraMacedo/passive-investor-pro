@@ -8,6 +8,8 @@ import {
 import { Wallet, TrendingUp, Coins, Layers, ArrowUpRight, ArrowDownRight, Plus, Eye, Sparkles } from "lucide-react";
 import { StatCard, PanelCard } from "@/components/StatCard";
 import { PatrimonyProgressBar, MonthComparison, AchievementBadges, MotivationalInsights } from "@/components/ProgressSection";
+import { HeroMetricsRow, computeHeroMetrics } from "@/components/HeroMetrics";
+import { SmartInsightsPanel } from "@/components/SmartInsights";
 import { useIncomes, useGoals } from "@/hooks/use-app-data";
 import { CATEGORIES, categoryColor, categoryLabel } from "@/lib/storage";
 import { formatBRL, formatPct, monthLabel, formatDate } from "@/lib/format";
@@ -40,6 +42,10 @@ function Dashboard() {
   }), [incomes]);
 
   const patrimonio = stats.invested + stats.year;
+  const heroMetrics = useMemo(() => computeHeroMetrics({
+    patrimonio, monthly: stats.month, yearly: stats.year, avg: stats.avg,
+    growth: stats.growth, fireGoal: goals.patrimony, count: stats.count,
+  }), [patrimonio, stats, goals.patrimony]);
   const monthData = useMemo(() => byMonth(incomes).slice(-12).map((m) => ({ name: monthLabel(m.key), valor: m.total })), [incomes]);
   const catData = useMemo(() =>
     byCategory(incomes).map((c) => ({ name: categoryLabel(c.category as never), value: c.total, color: categoryColor(c.category as never) })),
@@ -124,11 +130,19 @@ function Dashboard() {
             </div>
           </motion.div>
         </div>
+
+        {/* Métricas inteligentes do hero */}
+        <div className="relative px-8 md:px-12 pb-8 md:pb-10 -mt-2">
+          <HeroMetricsRow {...heroMetrics} />
+        </div>
       </motion.section>
 
 
       {/* PROGRESSO PATRIMONIAL */}
       <PatrimonyProgressBar current={patrimonio} goal={goals.patrimony} />
+
+      {/* INSIGHTS AUTOMÁTICOS DO MÊS */}
+      <SmartInsightsPanel incomes={incomes} goals={goals} />
 
       {/* CONQUISTAS */}
       <AchievementBadges incomes={incomes} goals={goals} />
@@ -149,7 +163,7 @@ function Dashboard() {
 
       {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-        <PanelCard title="Composição da Carteira" subtitle="Distribuição por classe de ativo" className="lg:col-span-1">
+        <PanelCard title="Composição da Carteira" subtitle="Distribuição por classe de ativo" className="lg:col-span-1" variant="glass">
           <div className="relative h-[260px]">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
@@ -212,6 +226,7 @@ function Dashboard() {
             <ArrowUpRight className="size-3" /> Trajetória ascendente
           </div>
         }
+        variant="spotlight"
       >
         <div className="h-[340px]">
           <ResponsiveContainer width="100%" height="100%">
