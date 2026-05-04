@@ -226,6 +226,7 @@ function Dashboard() {
             <ArrowUpRight className="size-3" /> Trajetória ascendente
           </div>
         }
+        variant="spotlight"
       >
         <div className="h-[340px]">
           <ResponsiveContainer width="100%" height="100%">
