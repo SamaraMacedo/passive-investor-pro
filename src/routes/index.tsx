@@ -42,6 +42,10 @@ function Dashboard() {
   }), [incomes]);
 
   const patrimonio = stats.invested + stats.year;
+  const heroMetrics = useMemo(() => computeHeroMetrics({
+    patrimonio, monthly: stats.month, yearly: stats.year, avg: stats.avg,
+    growth: stats.growth, fireGoal: goals.patrimony, count: stats.count,
+  }), [patrimonio, stats, goals.patrimony]);
   const monthData = useMemo(() => byMonth(incomes).slice(-12).map((m) => ({ name: monthLabel(m.key), valor: m.total })), [incomes]);
   const catData = useMemo(() =>
     byCategory(incomes).map((c) => ({ name: categoryLabel(c.category as never), value: c.total, color: categoryColor(c.category as never) })),
