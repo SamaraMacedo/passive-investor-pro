@@ -141,6 +141,9 @@ function Dashboard() {
       {/* PROGRESSO PATRIMONIAL */}
       <PatrimonyProgressBar current={patrimonio} goal={goals.patrimony} />
 
+      {/* INSIGHTS AUTOMÁTICOS DO MÊS */}
+      <SmartInsightsPanel incomes={incomes} goals={goals} />
+
       {/* CONQUISTAS */}
       <AchievementBadges incomes={incomes} goals={goals} />
 
